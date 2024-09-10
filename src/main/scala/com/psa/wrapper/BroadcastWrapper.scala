@@ -1,4 +1,4 @@
-package com.psa.test.functions.wrapper
+package com.psa.wrapper
 
 import org.apache.spark.SparkContext
 import org.apache.spark.broadcast.Broadcast

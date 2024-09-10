@@ -1,4 +1,4 @@
-package com.psa.test.functions.model
+package com.psa.model
 
 import lombok.Data
 
@@ -12,7 +12,7 @@ import scala.util.Random
  *
  */
 @Data
-class Physarum(var pos: Array[Double], var pop: Int, var energy: Double, var Dim: Int, var min: Double, var max: Double, var fitness: Double) extends Serializable {
+class Physarum(var pos: Array[Double], var pop: Int, var Dim: Int, var min: Double, var max: Double, var fitness: Double) extends Serializable {
   //Array for physarum position x at i'th iteration
   var x: Array[Double] = pos.clone()
 
@@ -20,7 +20,10 @@ class Physarum(var pos: Array[Double], var pop: Int, var energy: Double, var Dim
   var y: Array[Double] = x.clone()
 
   //  Energy of the physarum
-  var e: Double = energy
+  var e: Double = 2.02
+
+  //  Weight for the physarum
+  var w: Double = Random.nextDouble()
 
   //storing the fitness value of current iteration
   var f: Double = fitness
@@ -31,8 +34,10 @@ class Physarum(var pos: Array[Double], var pop: Int, var energy: Double, var Dim
 
   private def pulse(x: Array[Double]): Array[Double] = {
     x.map(xi => if (xi < min) {
+//      println("++++BOOOM++++")
       min * (0.1 + (Random.nextDouble() * (0.5 - 0.1)))
     } else if (xi > max) {
+//      println("----BOOOM----")
       max * (0.5 + (Random.nextDouble() * (1.0 - 0.5)))
     } else {
       xi
@@ -50,10 +55,15 @@ class Physarum(var pos: Array[Double], var pop: Int, var energy: Double, var Dim
     (newValue - min) / (max - min);
   }
 
-  def migrate(x: Array[Double], w: Double, g: Double): Array[Double] = {
-    pulse(x.map(xi => xi * (1 + w) * sdf(g)))
+  def migrate(g: Double) = {
+    x = pulse(x.map(xi => xi * g + w * e))
   }
 
+  //determines the energy length
+  def energy(max_lifeCycles: Int, lifeCycle: Int): Double = {
+    e = (2.02 - lifeCycle * ((1.08) / max_lifeCycles))
+    e
+  }
 
 
 }
