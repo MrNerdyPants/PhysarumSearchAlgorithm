@@ -34,10 +34,10 @@ class Physarum(var pos: Array[Double], var pop: Int, var Dim: Int, var min: Doub
 
   private def pulse(x: Array[Double]): Array[Double] = {
     x.map(xi => if (xi < min) {
-//      println("++++BOOOM++++")
+      //      println("++++BOOOM++++")
       min * (0.1 + (Random.nextDouble() * (0.5 - 0.1)))
     } else if (xi > max) {
-//      println("----BOOOM----")
+      //      println("----BOOOM----")
       max * (0.5 + (Random.nextDouble() * (1.0 - 0.5)))
     } else {
       xi
@@ -63,6 +63,14 @@ class Physarum(var pos: Array[Double], var pop: Int, var Dim: Int, var min: Doub
   def energy(max_lifeCycles: Int, lifeCycle: Int): Double = {
     e = (2.02 - lifeCycle * ((1.08) / max_lifeCycles))
     e
+  }
+
+  def crossOver() = {
+    x = x.map(xi => if (Random.nextBoolean()) xi else Random.between(min.toDouble, max.toDouble)).clone()
+  }
+
+  def crossOver(m: Array[Double]) = {
+    x = (x, m).zipped.map((xi, mi) => if (Random.nextBoolean()) xi else mi).toArray.clone()
   }
 
 

@@ -35,7 +35,7 @@ object PhysarumService {
     while (l < max_lifCycles) {
 
 
-      val g: Double = 1 * Random.nextDouble()
+      var g: Double = 1 * Random.nextDouble()
 
 
       population.foreach(physarum => {
@@ -44,19 +44,28 @@ object PhysarumService {
         val cF = matchTest(physarum.x, casef)
         //        println("after: " + cF)
 
-
         physarum.energy(max_lifCycles, l)
-
         physarum.w = weight(physarum.x, population(0).y)
-
-        physarum.migrate(g)
-
+        g = Random.nextDouble()
 
         //  Updating memory
         if (cF < physarum.fBest) {
           physarum.y = physarum.x.clone()
           physarum.fBest = cF
+          // migrate closer to best physarum
+          physarum.migrate(g)
+        } else {
+          //          create Spores
+          if (Random.nextBoolean()) {
+            //            ASR Spores
+            physarum.crossOver()
+          } else {
+            //            SR Spores
+            physarum.crossOver(population(0).y)
+          }
+
         }
+
 
         physarum.f = cF
 
@@ -74,7 +83,7 @@ object PhysarumService {
     val topPhysarum = sortedPop(0)
 
     println("Fitness: " + topPhysarum.fBest)
-    println("Position: " + topPhysarum.y)
+    println("Position: " + topPhysarum.y.toList)
 
   }
 
