@@ -45,7 +45,9 @@ object PhysarumService {
         //        println("after: " + cF)
 
         physarum.energy(max_lifCycles, l)
-        physarum.w = weight(physarum.x, population(0).y)
+        physarum.w = adaptiveForaging(physarum.x, population(0).y)
+
+        //        wind
         g = Random.nextDouble()
 
         //  Updating memory
@@ -53,17 +55,10 @@ object PhysarumService {
           physarum.y = physarum.x.clone()
           physarum.fBest = cF
           // migrate closer to best physarum
-          physarum.migrate(g)
-        } else {
-          //          create Spores
-          if (Random.nextBoolean()) {
-            //            ASR Spores
-            physarum.crossOver()
-          } else {
-            //            SR Spores
-            physarum.crossOver(population(0).y)
-          }
-
+          physarum.chemotaxis(g)
+        } else  {
+          //          Spores creation
+          bingoCage(physarum, population(0).y)
         }
 
 
@@ -87,10 +82,16 @@ object PhysarumService {
 
   }
 
-  def weight(x_i: Array[Double], x_m: Array[Double]): Double = {
+  def adaptiveForaging(x_i: Array[Double], x_m: Array[Double]): Double = {
     (((x_i, x_m).zipped.map((a, b) => b - a).sum) / x_i.length)
-    //    (ed(x_i, x_m) / x_i.length) + 0.00000000001
+  }
 
+  def bingoCage(physarum: Physarum, m_i: Array[Double]) = {
+    (1 + Random.nextDouble() * (3 - 1)).round match {
+      case 1 => physarum.symmetricCrossOver()
+      case 2 => physarum.asymmetricCrossOver(m_i)
+      case 3 => physarum.epigeneticChange()
+    }
   }
 
   def ed(x: Array[Double], x_m: Array[Double]): Double = {

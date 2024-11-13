@@ -4,6 +4,7 @@ import lombok.Data
 
 import scala.util.Random
 
+
 /**
  *
  * @project PhysarumSearchAlgorithm
@@ -55,7 +56,7 @@ class Physarum(var pos: Array[Double], var pop: Int, var Dim: Int, var min: Doub
     (newValue - min) / (max - min);
   }
 
-  def migrate(g: Double) = {
+  def chemotaxis(g: Double) = {
     x = pulse(x.map(xi => xi * g + w * e))
   }
 
@@ -65,12 +66,16 @@ class Physarum(var pos: Array[Double], var pop: Int, var Dim: Int, var min: Doub
     e
   }
 
-  def crossOver() = {
-    x = x.map(xi => if (Random.nextBoolean()) xi else Random.between(min.toDouble, max.toDouble)).clone()
+  def symmetricCrossOver() = {
+    x = x.map(xi => if (Random.nextBoolean()) xi else (min + Random.nextDouble() * (max - min))).clone()
   }
 
-  def crossOver(m: Array[Double]) = {
+  def asymmetricCrossOver(m: Array[Double]) = {
     x = (x, m).zipped.map((xi, mi) => if (Random.nextBoolean()) xi else mi).toArray.clone()
+  }
+
+  def epigeneticChange() = {
+    x = x.map(xi => xi * (-1)).clone()
   }
 
 
