@@ -38,6 +38,8 @@ object PhysarumService {
       var g: Double = 1 * Random.nextDouble()
 
 
+      val topPhysarum: Physarum = population(0)
+      val secondPhysarum: Physarum = population(1)
       population.foreach(physarum => {
 
         //        println("before: " + physarum.f)
@@ -45,7 +47,9 @@ object PhysarumService {
         //        println("after: " + cF)
 
         physarum.energy(max_lifCycles, l)
-        physarum.w = adaptiveForaging(physarum.x, population(0).y)
+//        if (topPhysarum.hashCode() == physarum.hashCode()) secondPhysarum.y else topPhysarum.y
+        physarum.w = adaptiveForaging(physarum.x,topPhysarum.y )
+//        println(physarum.w)
 
         //        wind
         g = Random.nextDouble()
@@ -56,7 +60,7 @@ object PhysarumService {
           physarum.fBest = cF
           // migrate closer to best physarum
           physarum.chemotaxis(g)
-        } else  {
+        } else {
           //          Spores creation
           bingoCage(physarum, population(0).y)
         }
@@ -78,20 +82,21 @@ object PhysarumService {
     val topPhysarum = sortedPop(0)
 
     println("Fitness: " + topPhysarum.fBest)
-    println("Position: " + topPhysarum.y.toList)
+//    println("Position: " + topPhysarum.y.toList)
 
   }
 
   def adaptiveForaging(x_i: Array[Double], x_m: Array[Double]): Double = {
-    (((x_i, x_m).zipped.map((a, b) => b - a).sum) / x_i.length)
+    (((x_i, x_m).zipped.map((a, b) => b - a).sum) / x_i.length.toDouble)
   }
 
   def bingoCage(physarum: Physarum, m_i: Array[Double]) = {
-    (1 + Random.nextDouble() * (3 - 1)).round match {
-      case 1 => physarum.symmetricCrossOver()
-      case 2 => physarum.asymmetricCrossOver(m_i)
-      case 3 => physarum.epigeneticChange()
-    }
+        (1 + Random.nextDouble() * (3 - 1)).round match {
+          case 1 => physarum.symmetricCrossOver()
+          case 2 => physarum.asymmetricCrossOver(m_i)
+          case 3 => physarum.epigeneticChange()
+        }
+//    physarum.asymmetricCrossOver(m_i)
   }
 
   def ed(x: Array[Double], x_m: Array[Double]): Double = {

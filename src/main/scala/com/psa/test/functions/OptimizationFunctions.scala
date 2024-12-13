@@ -14,7 +14,7 @@ case object OptimizationFunctions {
 
   var func = ""
 
-  var basePath = "C:\\Users\\LENOVO\\Desktop\\Learn\\Personal Project\\PhysarumSearchAlgorithm\\src\\main\\resources\\files\\"
+  var basePath = "D:\\Perosnal\\Practice Projects\\PhysarumSearchAlgorithm\\src\\main\\resources\\files\\"
 
 
   //'''''''''''''''''''''''''''''''''' Read Files ''''''''''''

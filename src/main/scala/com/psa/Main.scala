@@ -25,23 +25,24 @@ object Main {
     val dim: Int = 1000 //scala.io.StdIn.readLine.toInt//args(1).toInt//scala.io.StdIn.readLine.toInt//
 
     println("Enter the Population:")
-    val pop: Int = Math.floor(4 + Math.floor(3 * Math.log(dim))).round.toInt//scala.io.StdIn.readLine.toInt//args(0).toInt//scala.io.StdIn.readLine.toInt//
+    val pop: Int = 50
+//        Math.floor(4 + Math.floor(3 * Math.log(dim))).round.toInt//scala.io.StdIn.readLine.toInt//args(0).toInt//scala.io.StdIn.readLine.toInt//
 
     println("Enter the Min Range:")
-    val min: Double = -5.12 //scala.io.StdIn.readLine.toDouble//args(2).toDouble//scala.io.StdIn.readLine.toDouble//
+    val min: Double = -500 //scala.io.StdIn.readLine.toDouble//args(2).toDouble//scala.io.StdIn.readLine.toDouble//
 
     println("Enter the Max Range:")
-    val max: Double = 5.12 //scala.io.StdIn.readLine.toDouble//args(3).toDouble//scala.io.StdIn.readLine.toDouble//
+    val max: Double = 500 //scala.io.StdIn.readLine.toDouble//args(3).toDouble//scala.io.StdIn.readLine.toDouble//
 
     println("Enter the Max Iterations:")
     val max_it: Int = 1000 //scala.io.StdIn.readLine.toInt//args(4).toInt//scala.io.StdIn.readLine.toInt//
 
     println("What should be the percentage of population selection(25,50,75):")
-    var selection: Int = 50 //scala.io.StdIn.readLine.toInt//args(5).toInt//scala.io.StdIn.readLine.toInt//
+    var selection: Int = 25 //scala.io.StdIn.readLine.toInt//args(5).toInt//scala.io.StdIn.readLine.toInt//
     // selection=(selection/100)*pop
 
     println("Enter the Function case :")
-    val casef: String = "1" //scala.io.StdIn.readLine.toString//args(6).toString//scala.io.StdIn.readLine.toString//
+    val casef: String = "16" //scala.io.StdIn.readLine.toString//args(6).toString//scala.io.StdIn.readLine.toString//
 
     println("Enter the migration interval :")
     val mi: Int = 1000 //scala.io.StdIn.readLine.toInt//args(7).toString//scala.io.StdIn.readLine.toString//

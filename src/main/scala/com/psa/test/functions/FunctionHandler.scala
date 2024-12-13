@@ -14,7 +14,9 @@ object FunctionHandler {
     c match {
 
       case "0" => res = x.map(xi => xi).product
-      case "1" => res = Rastrigin(x,x.length)//ShiftedElliptic(x)
+      case "1" => res =
+//        Rastrigin(x,x.length)
+       ShiftedElliptic(x)
       case "2" => res = ShiftedRastrigin(x)
       case "3" => res = ShiftedAckleyFunction(x)
       case "4" => res = Ackley(x)
